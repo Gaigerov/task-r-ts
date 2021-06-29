@@ -1,0 +1,34 @@
+.calendar__window {
+    display: flex;
+    position: relative;
+}
+
+.calendar__body {
+    display: block;
+    position: absolute;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px rgb(181, 221, 253) solid;
+    background: white;
+    top: calc(100% + 5px);
+    left: 0;
+    z-index: 1;
+    color: rgb(72, 132, 241);
+}
+
+ .cellOnHover {
+    text-align: center;
+ }
+
+.cellOnHover:hover {
+    font-weight: bold;
+    background-color: rgb(241, 241, 241);
+    cursor: pointer;
+}
+
+.DateInput {
+    padding: 5px 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 100%;
+}

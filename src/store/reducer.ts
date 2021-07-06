@@ -4,7 +4,7 @@ import {FormStatus, PageName, StoreKey, TaskStatus} from '../enums';
 import {getStorageValue} from '../utils';
 
 const INIT_STATE: StateModel = {
-    tasks: getStorageValue(localStorage, StoreKey.Tasks),
+    tasks: getStorageValue(localStorage, StoreKey.Tasks) || [],
     searchValue: '',
     pageName: PageName.Main,
     pageNumber: 0,

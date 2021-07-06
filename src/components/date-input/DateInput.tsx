@@ -65,9 +65,7 @@ const DateInput: React.FC<OwnProps> = ({id, value, label, placeholder, onChange}
 
     // const handleClickOnWindow = (event: MouseEvent) => {
     //     event.stopPropagation();
-    //     if (!isClickInContainer(event.targ
-
-et)) {
+    //     if (!isClickInContainer(event.targnpmet)) {
     //         handleCloseCalendar();
     //     }
     // }

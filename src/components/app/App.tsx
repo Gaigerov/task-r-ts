@@ -10,33 +10,23 @@ import Pagination from '../pagination';
 import DeskPage from '../desk-page';
 import {sortBy, reverse} from 'lodash';
 import {Task} from '../../types';
-import {PageName} from '../../enums';
+import {FormStatus, PageName, TaskStatus} from '../../enums';
 import {TASK_ON_PAGE} from '../../consts';
 import {StateModel} from '../../store/types';
 import {useSelector} from 'react-redux';
+import {actions} from '../../store/config';
+import {v4} from 'uuid';
 
 moment.locale('ru');
 
 type OwnProps = {};
-
-
 
 const App: React.FC<OwnProps> = () => {
    
     const pageName = useSelector((state: StateModel) => state.pageName);
     const searchValue = useSelector((state: StateModel) => state.searchValue);
     const tasks = useSelector((state: StateModel) => state.tasks);
-
-    // getTasksFromStorage = () => {
-    //     return getStorageValue(localStorage, StoreKey.Tasks);
-    // }
-
-    // saveTasksToStorage = (tasks: Task[]) => {
-    //     setStorageValue(localStorage, StoreKey.Tasks, tasks);
-    //     return {
-    //         tasks
-    //     }
-    // }
+    const form = useSelector((state: StateModel) => state.form);
 
     // createTask = (task: Task) => {
     //     const taskList = this.props.tasks.concat(task);
@@ -131,31 +121,22 @@ const App: React.FC<OwnProps> = () => {
     //     });
     // }
 
-    // handleSubmit = (event: React.FormEvent) => {
-    //     event.preventDefault();
-    //     const task = this.state.form.values;
-    //     if (this.state.form.status === FormStatus.Create) {
-    //         this.createTask({
-    //             ...task,
-    //             status: TaskStatus.Pending,
-    //             id: v4(),
-    //         });
-    //         this.handleClearForm();
-    //     }
-    //     if (this.state.form.status === FormStatus.Edit) {
-    //         this.editTask(task);
-    //         this.handleClearForm();
-    //     }
-    //     this.setState(state => {
-    //         return {
-    //             ...state,
-    //             form: {
-    //                 ...state.form,
-    //                 status: FormStatus.Create,
-    //             }
-    //         }
-    //     });
-    // }
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        const task = form.values;
+        if (form.status === FormStatus.Create) {
+            actions.addTask({
+                ...task,
+                status: TaskStatus.Pending,
+                id: v4(),
+            });
+            actions.resetForm(form);
+        }
+        if (form.status === FormStatus.Edit) {
+            actions.editTask(task);
+            actions.changePageNumber(0);
+        }
+    }
 
     // handleClearForm = () => {
     //     this.setState(state => {
@@ -204,6 +185,7 @@ const App: React.FC<OwnProps> = () => {
                     {pageName === PageName.Main ? <div className="d-flex ml-2 mr-2 row">
                         <div className="card col-12 col-md-6 col-lg-4">
                             <TableForm
+                                onSubmit={handleSubmit}
                             />
                         </div>
                         <div className="card col-12 col-md-6 col-lg-8">

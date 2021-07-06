@@ -3,16 +3,18 @@ import React from 'react';
 import TableFormGroup from '../table-form-group';
 import Button from '../button';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import DateInput from '../date-input';
+// import DateInput from '../date-input';
 import {FormStatus} from '../../enums';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {StateModel} from '../../store/types';
 import {useSelector} from 'react-redux';
 import {actions} from '../../store/config';
 
+type OwnProps = {
+    onSubmit: (event: React.FormEvent) => void
+};
 
-
-const TableForm: React.FC = () => {
+const TableForm: React.FC<OwnProps> = () => {
     const form = useSelector((state: StateModel) => state.form);
 
     const inputTitle = useSelector((state: StateModel) => state.form.values.title);
@@ -21,8 +23,8 @@ const TableForm: React.FC = () => {
     const inputDescription = useSelector((state: StateModel) => state.form.values.description);
     const handleChangeDescription = () => actions.changeSearchValue(inputDescription);
 
-    const inputDate = useSelector((state: StateModel) => state.form.values.date);
-    const handleChangeDate = () => actions.changeSearchValue(inputDate);
+    // const inputDate = useSelector((state: StateModel) => state.form.values.date);
+    // const handleChangeDate = () => actions.changeSearchValue(inputDate);
 
     const toggleImportant = useSelector((state: StateModel) => state.form.values.important);
     const handleToggleImportant = () => !toggleImportant;
@@ -50,13 +52,13 @@ const TableForm: React.FC = () => {
                 label="Описание:"
                 onChange={handleChangeDescription}
             />
-            <DateInput
+            {/* <DateInput
                 id="date"
                 value={form.values.date}
                 placeholder="Введите дату"
                 label="Дата события:"
                 onChange={handleChangeDate}
-            />
+            /> */}
 
             <div className="d-flex pr-3 mb-3 align-items-center">
                 <div className="form-check d-flex align-items-center ml-0">
